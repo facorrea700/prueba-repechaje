@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "./components/Pais";
+import axios from "axios";
+import { useState } from "react";
 
 function App() {
+  const [paises, setPaises] = useState([]);
+  axios.get("https://restcountries.com/v3.1/all").then((res) => {
+    console.log(res);
+    setPaises(res.data);
+  });
+
+  console.log(paises);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button>Prueba Repechaje</button>
+      {paises.map((pais) => (
+        <pais key={pais.name} name={pais.name} />
+      ))}
     </div>
   );
 }
